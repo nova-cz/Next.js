@@ -1,0 +1,73 @@
+=====================================================================================================================
+
+Comando apra crear proyecto es:
+
+npx create-next-app@latest
+
+=====================================================================================================================
+
+EL archivo principal donde se ahcen la es layout.tsx que es donde importamos las fuentes, estilos y componentes que se usan en toda la aplicacion
+
+=====================================================================================================================
+
+PARA CREAR RUTAS
+
+Lo que debemos hacer e simplemente crear una carpeta con el nombre de la ruta que queremos crear
+El nombre que pongamos a la carpetas sera el nombre de la ruta que tendra la pagina, ademas de que lo que este dentro de esa carptea es lo que se va a terminar renderizando
+
+=====================================================================================================================
+
+NESTED ROUTES
+EN el mayor de los casos usaremos Nested Routes que son las rutas anidadas
+
+=====================================================================================================================
+
+Estas son rutas que se generan dinámicamente en Next.js, basadas en parámetros variables (por ejemplo, el ID de un usuario o producto).
+Lo único que se tiene que hacer es crear un archivo entre corchetes dentro de la carpeta app o pages.
+
+Por ejemplo:
+
+app/
+ └── blog/
+      └── [id]/
+           └── page.jsx
+
+=====================================================================================================================
+
+layout
+Basicamnete son combonentes raiz que se mantienen en toda la aplicacion
+
+=====================================================================================================================
+
+ROUTE GROUPS (Grupos de Rutas)
+
+Nos permiten agrupar rutas sin que el nombre de la carpeta afecte la URL.
+Esto es útil para organizar mejor la estructura del proyecto o aplicar un layout diferente a un grupo de páginas.
+
+Se hace creando una carpeta entre paréntesis dentro de app/.
+
+Por ejemplo:
+
+app/
+ ├── (marketing)/
+ │    ├── layout.jsx
+ │    └── page.jsx
+ └── (dashboard)/
+      ├── layout.jsx
+      └── page.jsx
+
+=====================================================================================================================
+
+⚠️ ERROR HANDLING (Manejo de Errores)
+
+En Next.js, puedes manejar errores por ruta o por grupo de rutas creando un archivo llamado error.jsx.
+Este archivo se renderiza automáticamente cuando ocurre un error dentro de esa ruta o sus componentes hijos.
+
+Por ejemplo:
+
+app/
+ ├── page.jsx
+ ├── error.jsx
+ └── dashboard/
+      ├── page.jsx
+      └── error.jsx
