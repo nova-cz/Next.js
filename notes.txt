@@ -71,3 +71,152 @@ app/
  └── dashboard/
       ├── page.jsx
       └── error.jsx
+
+=====================================================================================================================
+
+Loading UIs
+Se crean archivos llamados loading.jsx
+
+Por ejemplo:
+
+app/
+ └── dashboard/
+      └── loading.jsx
+ 
+
+===================================================================================================================== 
+
+🔍 DATA FETCHING (Recuperación de Datos)
+
+En Next.js, puedes obtener datos de forma asíncrona directamente en los componentes del lado del servidor (Server Components).
+Esto permite que las páginas se generen con la información lista antes de enviarse al navegador.
+
+Por ejemplo:
+
+app/
+ └── users/
+      └── page.jsx
+
+
+===================================================================================================================== 
+
+⚙️ INCREMENTAL STATIC REGENERATION (Regeneración Estática Incremental)
+
+Permite actualizar páginas estáticas después del build, sin tener que volver a desplegar todo el proyecto.
+Next.js regenera las páginas de forma automática o bajo demanda.
+
+🕒 1. Time-based Revalidation (por tiempo):
+Revalida la página automáticamente después de cierto tiempo.
+
+export const revalidate = 60; // se regenera cada 60 segundos
+
+
+⚡ 2. On-demand Revalidation (bajo demanda):
+Se puede forzar la regeneración manualmente desde una API route.
+
+// app/api/revalidate/route.js
+export async function GET(request) {
+  await res.revalidate("/products");
+  return Response.json({ revalidated: true });
+}
+
+===================================================================================================================== 
+
+🌐 SERVER SIDE RENDERING (Renderizado del Lado del Servidor)
+
+El contenido se genera en el servidor en cada solicitud (no se guarda en caché).
+Ideal para datos que cambian constantemente o dependen del usuario.
+
+export const dynamic = "force-dynamic"; // fuerza SSR
+
+
+O usando una función asíncrona que obtenga datos en tiempo real:
+
+export default async function Page() {
+  const res = await fetch("https://api.example.com/data", { cache: "no-store" });
+  const data = await res.json();
+  return <div>{data.name}</div>;
+}
+
+===================================================================================================================== 
+
+⚡ PARTIAL PRE-RENDERING (Renderizado Parcial Pre-renderizado)
+
+Next.js 14+ introduce esta técnica para mezclar renderizado estático y dinámico en una misma página.
+La parte estática se genera al build y las partes dinámicas (como datos de usuario) se renderizan bajo demanda.
+
+📘 Ventaja: mejora el rendimiento sin perder interactividad.
+
+Ejemplo conceptual:
+
+// partes estáticas se prerenderizan
+// partes dinámicas (como <DynamicContent />) se renderizan al solicitarse
+
+===================================================================================================================== 
+
+🧩 API ROUTES
+
+Permiten crear endpoints de API directamente en tu proyecto Next.js, sin un backend separado.
+Se colocan en la carpeta /app/api.
+
+app/
+ └── api/
+      └── hello/
+           └── route.js
+
+
+Código de ejemplo:
+
+// app/api/hello/route.js
+export async function GET() {
+  return Response.json({ message: "Hola desde la API 👋" });
+}
+
+
+Puedes usar GET, POST, PUT, DELETE, etc.
+Cada archivo route.js o route.ts representa un endpoint.
+
+===================================================================================================================== 
+
+🚀 SEARCH ENGINE OPTIMIZATION (Optimización para Motores de Búsqueda)
+
+Next.js facilita el SEO gracias al renderizado en servidor y los metadatos configurables.
+Permite definir títulos, descripciones, íconos, imágenes para compartir, etc.
+
+export const metadata = {
+  title: "Mi sitio web",
+  description: "Página optimizada con Next.js",
+  openGraph: {
+    title: "Mi sitio web",
+    description: "Página optimizada con Next.js",
+    url: "https://misitio.com",
+  },
+};
+
+
+Estos datos ayudan a que tu sitio se posicione mejor en buscadores como Google.
+
+===================================================================================================================== 
+
+🗂️ FILES BASED METADATA (Metadatos basados en archivos)
+
+Next.js también permite definir metadatos mediante archivos específicos dentro de las rutas.
+
+Ejemplo:
+
+app/
+ ├── page.jsx
+ ├── icon.png          # favicon
+ ├── opengraph-image.png  # imagen al compartir el enlace
+ └── robots.txt         # reglas de rastreo para buscadores
+
+
+📄 Archivos comunes:
+
+favicon.ico o icon.png → ícono del sitio
+
+opengraph-image.png → imagen para redes sociales
+
+robots.txt → control de indexación
+
+sitemap.xml → mapa del sitio para buscadores
